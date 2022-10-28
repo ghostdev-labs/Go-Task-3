@@ -108,7 +108,7 @@ func CheckBalance() {
 	NewLine(1)
 	fmt.Println("----------BALANCE----------")
 	fmt.Println("Your account balance is: ", accountBalance)
-	NewLine(2)
+	NewLine(1)
 	anotherTransaction()
 }
 
@@ -124,7 +124,9 @@ func Withdraw() {
 	NewLine(1)
 	fmt.Println("1. 2000 \t\t 2. 5000")
 	fmt.Println("3. 10000 \t\t 4. others")
+	NewLine(1)
 
+	fmt.Print("Enter a number: ")
 	_, err := fmt.Scan(&menuNumber)
 	NewLine(1)
 	ErrorChecker(err)
@@ -150,14 +152,14 @@ func Withdraw() {
 			for {
 				_, err := fmt.Scan(&withdrawalAmount)
 				ErrorChecker(err)
-				if withdrawalAmount > 0 {
+				if withdrawalAmount > accountBalance {
+					fmt.Println("Insufficient Funds")
+					anotherTransaction()
+				} else if withdrawalAmount > 0 {
 					accountBalance -= withdrawalAmount
 					fmt.Printf("You have successfully withdrawn ₦%.2f", withdrawalAmount)
 					NewLine(1)
 					break
-				} else if withdrawalAmount > accountBalance {
-					fmt.Println("Insufficient Funds")
-					anotherTransaction()
 				}
 			}
 		default:
